@@ -4,6 +4,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import './css/login.scss'
 function Login() {
     const dispatch = useDispatch();
     const nav = useNavigate();
@@ -26,75 +27,81 @@ function Login() {
     useEffect(() => {
 
     }, [])
+
     return <>
-        <div style={{ fontSize: '20px', margin: ' 0 50%' }}>登录</div>
-        <Form
-            name="basic"
-            labelCol={{
-                span: 8,
-            }}
-            wrapperCol={{
-                span: 16,
-            }}
-            style={{
-                maxWidth: 600,
-            }}
-            initialValues={{
-                remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
-            <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入用户名称!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
+        <div className='loginBg '>
+            <div className=' text-red-300 text-2xl w-80px mx-auto mt-150px'>登录</div>
+            <div className='mx-auto w-600px mt-50px'>
+                <Form
+                    name="basic"
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                    style={{
+                        maxWidth: 600,
 
-            <Form.Item
-                label="Password"
-                name="password"
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入用户名称!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入用户密码!',
-                    },
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
+                    <Form.Item
+                        label="Password"
+                        name="password"
 
-            <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入用户密码!',
+                            },
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
-            <Form.Item
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-            >
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+                    <Form.Item
+                        name="remember"
+                        valuePropName="checked"
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Checkbox>Remember me</Checkbox>
+                    </Form.Item>
+
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        </div>
     </>
 }
 

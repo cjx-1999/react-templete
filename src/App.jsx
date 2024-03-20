@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, redirect, useNavigate } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import { AppstoreOutlined } from '@ant-design/icons';
@@ -23,14 +23,15 @@ function App() {
     setCurrent(e.key);
   };
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
-      nav('/login', { replace: true })
+      redirect('/login');
     }
   })
 
   return (
     <>
+
       <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
       <br />
       <Outlet />

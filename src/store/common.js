@@ -18,7 +18,7 @@ const { setToken, clearToken } = commonStore.actions;
 function getToken(username, password) {
     return async (dispatch) => {
         const { data } = await post(`/login`, { username, password });
-        localStorage.setItem('token', data.data.token);
+        sessionStorage.setItem('token', data.data.token);
         dispatch(setToken(data.data.token));
     }
 

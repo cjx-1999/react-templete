@@ -9,7 +9,7 @@ function CreateHttp() {
     })
 
     http.interceptors.request.use((config) => {
-        let token = localStorage.getItem('token');
+        let token = sessionStorage.getItem('token');
         if (token) {
             config.headers.Authorization = token;
         }
@@ -22,7 +22,7 @@ function CreateHttp() {
         return Promise.resolve(res)
     }, (err) => {
         if (err.response.status == 401) {
-            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
             message.warning('密钥已经过期了');
         }
     })
