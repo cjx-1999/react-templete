@@ -1,40 +1,20 @@
-import { Outlet, redirect, useNavigate } from 'react-router-dom';
-
-import { useEffect, useState } from 'react';
-import { AppstoreOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-const items = [
-  {
-    label: 'home',
-    key: '/',
-    icon: <AppstoreOutlined />,
-  },
-  {
-    label: 'other',
-    key: '/other',
-    icon: <AppstoreOutlined />,
-  },
-];
+import { RouterProvider } from 'react-router-dom';
+import { ConfigProvider, theme, Button } from 'antd';
+import router from './router';
+import { useDispatch, useSelector } from 'react-redux';
+import { switchDark } from './store/common';
+import zhCN from 'antd/locale/zh_CN';
+import enUS from 'antd/es/calendar/locale/en_US';
 function App() {
-  const [current, setCurrent] = useState('/');
-  const nav = useNavigate();
-  const onClick = (e) => {
-    nav(e.key); // 路由跳转
-    setCurrent(e.key);
-  };
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      redirect('/login');
-    }
-  })
-
+  // state
+  const commonStore = useSelector(state => state.common);
+  //hooks
+  // const dispatch = useDispatch();
   return (
     <>
-
-      <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
-      <br />
-      <Outlet />
+      <ConfigProvider locale={enUS} theme={{ algorithm: commonStore.isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+        <RouterProvider router={router}></RouterProvider>
+      </ConfigProvider>
     </>
   );
 }

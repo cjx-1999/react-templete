@@ -1,10 +1,9 @@
-import { message } from "ant-design-vue";
+import { removeToken, getToken } from "@/utils/token";
 import axios from "axios";
-
+import { redirect } from "react-router-dom";
 function CreateHttp() {
-
     let http = axios.create({
-        baseURL: 'http://192.168.10.127:3000',
+        baseURL: 'http://localhost:3000',
         timeout: 10000
     })
 
@@ -22,9 +21,13 @@ function CreateHttp() {
         return Promise.resolve(res)
     }, (err) => {
         if (err.response.status == 401) {
-            sessionStorage.removeItem('token');
-            message.warning('密钥已经过期了');
+            const token = getToken('token');
+            if (token) {
+                removeToken('token');W
+            }
+            redirect('/login',{})
         }
+        return Promise.reject(err)
     })
     return http;
 }
@@ -36,8 +39,18 @@ export function get(url, params, options) {
     })
 }
 export function post(url, data, options) {
+
     return http.post(url, {
         ...data,
         ...options
     })
+}
+
+function requestRestrict(url) {
+    if (url !== '/login') {
+        const token = sessionStorage.getItem('token');
+        return token ? true : false;
+    } else {
+        return true
+    }
 }

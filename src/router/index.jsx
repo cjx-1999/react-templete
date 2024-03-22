@@ -1,13 +1,17 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 import Home from '../views/home';
 import Other from '../views/other';
-import App from '@/App';
 import Login from '@/views/login';
+import Layout from '@/views/layout';
+import TokenAuth from '@/views/tokenAuth';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
+    index: '/',
+    element:
+      <TokenAuth>
+        <Layout />
+      </TokenAuth>,
     children: [
       {
         index: true,
@@ -17,12 +21,13 @@ const router = createBrowserRouter([
         path: '/other',
         element: <Other />,
       },
-    ],
+    ]
   },
   {
     path: '/Login',
     element: <Login />,
   },
-]);
+],
+);
 
 export default router;

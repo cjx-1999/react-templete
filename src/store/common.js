@@ -4,6 +4,7 @@ const commonStore = createSlice({
     name: 'commonStore',
     initialState: {
         token: null,
+        isDark: true,
     },
     reducers: {
         setToken(state, payload) {
@@ -12,9 +13,13 @@ const commonStore = createSlice({
         clearToken(state, payload) {
             state.token = null;
         },
+        // dark
+        switchDark(state, payload) {
+            state.isDark = !state.isDark;
+        }
     }
 })
-const { setToken, clearToken } = commonStore.actions;
+const { setToken, clearToken, switchDark } = commonStore.actions;
 function getToken(username, password) {
     return async (dispatch) => {
         const { data } = await post(`/login`, { username, password });
@@ -23,5 +28,5 @@ function getToken(username, password) {
     }
 
 }
-export { setToken, clearToken, getToken }
+export { setToken, clearToken, getToken, switchDark }
 export default commonStore.reducer;
